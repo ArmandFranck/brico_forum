@@ -1,0 +1,355 @@
+/* Variables CSS pour une meilleure maintenance */
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --dark-color: #333;
+    --light-color: #f4f4f9;
+    --white: #fff;
+    --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --border-radius: 8px;
+    --spacing: 1rem;
+  }
+  
+  /* Reset et styles de base */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: var(--light-color);
+    line-height: 1.6;
+  }
+  
+  /* Header et Navigation */
+  header {
+    background-color: var(--dark-color);
+    color: var(--white);
+    padding: var(--spacing);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow);
+  }
+  
+  .nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: calc(var(--spacing) / 2);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing);
+  }
+  
+  /* Boutons */
+  .button {
+    padding: 0.5em 1em;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    color: var(--white);
+    font-weight: 500;
+    transition: transform 0.2s, opacity 0.2s;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+  }
+  
+  .button:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+  }
+  
+  .new-post {
+    background-color: var(--success-color);
+  }
+  
+  .logout {
+    background-color: var(--danger-color);
+  }
+  
+  .nav-button {
+    background-color: var(--secondary-color);
+  }
+  
+  /* Container principal */
+  .container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 var(--spacing);
+  }
+  
+  /* Posts */
+  .post {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    padding: calc(var(--spacing) * 1.5);
+    margin-bottom: calc(var(--spacing) * 2);
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease;
+  }
+  
+  .post:hover {
+    transform: translateY(-5px);
+  }
+  
+  .post h2 {
+    color: var(--dark-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing);
+  }
+  
+  .post-content {
+    margin: var(--spacing) 0;
+  }
+  
+  .post-image {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+    margin: var(--spacing) 0;
+  }
+  
+  /* Commentaires */
+  .comments-section {
+    margin-top: calc(var(--spacing) * 2);
+    padding-top: var(--spacing);
+    border-top: 1px solid #eee;
+  }
+  
+  .comment-list {
+    list-style: none;
+  }
+  
+  .comment-item {
+    background-color: #f8f9fa;
+    padding: var(--spacing);
+    border-radius: var(--border-radius);
+    margin: calc(var(--spacing) / 2) 0;
+  }
+  
+  .comment-meta {
+    display: flex;
+    justify-content: space-between;
+    color: var(--secondary-color);
+    font-size: 0.9em;
+  }
+  
+  /* Actions */
+  .post-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+    margin-top: var(--spacing);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .container {
+      width: 95%;
+    }
+    
+    .nav-bar {
+      flex-direction: column;
+      gap: var(--spacing);
+    }
+    
+    .post-actions {
+      flex-direction: column;
+    }
+    
+    .button {
+      width: 100%;
+      text-align: center;
+      justify-content: center;
+    }
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .post {
+    animation: fadeIn 0.5s ease-out;
+  }
+  /* Général */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* En-tête */
+header h1 {
+    text-align: center;
+    color: #333;
+    margin-top: 0;
+}
+
+/* Conteneur principal */
+.container {
+    width: 100%;
+    max-width: 400px;
+    background-color: #fff;
+    padding: 2em;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 2em;
+    text-align: center;
+}
+
+.container h2 {
+    color: #333;
+    margin-bottom: 1em;
+}
+
+/* Formulaire */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+form p {
+    margin: 0;
+}
+
+form label {
+    font-weight: bold;
+    color: #555;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form input[type="number"],
+form select,
+form textarea {
+    padding: 0.8em;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+form button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 0.8em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+}
+
+form button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Lien de connexion */
+.container p {
+    margin-top: 1em;
+    font-size: 0.9em;
+}
+
+.container p a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.container p a:hover {
+    text-decoration: underline;
+}
+:root {
+  --blue: #007bff;
+  --green: #28a745;
+  --red: #dc3545;
+  --gray: #6c757d;
+}
+
+/* Utiliser les variables */
+.button-blue {
+  background-color: var(--blue);
+}
+
+.button-green {
+  background-color: var(--green);
+}
+
+.button-red {
+  background-color: var(--red);
+}
+
+.button-gray {
+  background-color: var(--gray);
+}
+.button {
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  border-radius: 8px;
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+/* Couleurs spécifiques */
+.button-blue {
+  background-color: #007bff; /* Bleu */
+}
+
+.button-green {
+  background-color: #28a745; /* Vert */
+}
+
+.button-red {
+  background-color: #dc3545; /* Rouge */
+}
+
+.button-gray {
+  background-color: #6c757d; /* Gris */
+}
+
+/* Effet hover */
+.button-blue:hover {
+  background-color: #0056b3;
+}
+
+.button-green:hover {
+  background-color: #218838;
+}
+
+.button-red:hover {
+  background-color: #c82333;
+}
+
+.button-gray:hover {
+  background-color: #5a6268;
+}

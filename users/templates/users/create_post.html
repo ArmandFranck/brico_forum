@@ -1,0 +1,6 @@
+<h1>Créer une Publication</h1>
+<form method="post" enctype="multipart/form-data">  <!-- N'oubliez pas d'inclure enctype -->
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Créer une publication</button>
+</form>

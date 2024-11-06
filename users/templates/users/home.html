@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum des Bricoleurs</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="nav-bar">
+            <div class="user-info">
+                {% if user.is_authenticated %}
+                    <span><i class="fas fa-user"></i> {{ user.username }}</span>
+                    <span class="followers-count"><i class="fas fa-users"></i> {{ user.get_follower_count }} abonnés</span>
+                    <a href="{% url 'login' %}" class="button button-red">
+                        <i class="fas fa-sign-out-alt"></i> Déconnexion
+                    </a>
+                {% endif %}
+            </div>
+            <a href="{% url 'create_post' %}" class="button button-green">
+                <i class="fas fa-plus"></i> Nouvelle Publication
+            </a>
+        </div>
+        <nav>
+            <a href="{% url 'home' %}" class="button button-blue">
+                <i class="fas fa-home"></i> Accueil
+            </a>
+            <a href="{% url 'send_message' user.id %}" class="button button-gray">
+                <i class="fas fa-comments"></i> Messages Envoyés
+            </a>
+        </nav>
+    </header>
+    
+    <div class="container">
+        <h1><i class="fas fa-tools"></i> Forum des Bricoleurs</h1>
+
+        {% for post in posts %}
+        <article class="post">
+            <h2>
+                <span><i class="fas fa-user-circle"></i> {{ post.author.username }}</span>
+                <small>{{ post.author.get_follower_count }} abonnés</small>
+            </h2>
+            
+            <div class="post-content">
+                {{ post.content|linebreaks }}
+                
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" alt="Image de {{ post.title }}" class="post-image">
+                {% endif %}
+            </div>
+
+            <section class="comments-section">
+                <h3><i class="fas fa-comments"></i> Commentaires</h3>
+                <ul class="comment-list">
+                    {% for comment in post.comments.all %}
+                        <li class="comment-item">
+                            <div class="comment-meta">
+                                <strong><i class="fas fa-user"></i> {{ comment.author.username }}</strong>
+                                <em>{{ comment.created_at|date:"d M Y H:i" }}</em>
+                            </div>
+                            {{ comment.content }}
+                        </li>
+                    {% empty %}
+                        <li class="no-comments">Pas encore de commentaires</li>
+                    {% endfor %}
+                </ul>
+            </section>
+
+            <div class="post-actions">
+                <a href="{% url 'add_comment' post.id %}" class="button action-button">
+                    <i class="fas fa-comment"></i> Commenter
+                </a>
+                <a href="{% url 'view_messages' post.author.id %}" class="button action-button">
+                    <i class="fas fa-envelope"></i> Message Privé
+                </a>
+
+                {% if request.user.is_authenticated %}
+                    {% if request.user != post.author %}
+                        <a href="{% url 'follow_user' post.author.id %}" class="button action-button">
+                            <i class="fas fa-user-plus"></i> Suivre
+                        </a>
+                        <a href="{% url 'unfollow_user' post.author.id %}" class="button action-button">
+                            <i class="fas fa-user-minus"></i> Se désabonner
+                        </a>
+                    {% endif %}
+
+                    {% if request.user == post.author %}
+                        <a href="{% url 'edit_post' post.id %}" class="button action-button">
+                            <i class="fas fa-edit"></i> Modifier
+                        </a>
+                        <a href="{% url 'delete_post' post.id %}" class="button action-button">
+                            <i class="fas fa-trash"></i> Supprimer
+                        </a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+    <style>
+        .button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5em;
+            padding: 0.6em 1.2em;
+            font-size: 1em;
+            border-radius: 8px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+    
+        .button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+    </style>
+    
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Recharge automatique plus douce
+            setInterval(function() {
+                fetch(window.location.href)
+                    .then(response => response.text())
+                    .then(html => {
+                        const parser = new DOMParser();
+                        const newDoc = parser.parseFromString(html, 'text/html');
+                        const currentPosts = document.querySelector('.container');
+                        const newPosts = newDoc.querySelector('.container');
+                        
+                        if (currentPosts.innerHTML !== newPosts.innerHTML) {
+                            currentPosts.innerHTML = newPosts.innerHTML;
+                        }
+                    });
+            }, 10000);
+        });
+    </script>
+</body>
+</html>

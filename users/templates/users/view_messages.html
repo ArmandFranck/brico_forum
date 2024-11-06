@@ -1,0 +1,14 @@
+<h2>Messages avec {{ user.username }}</h2>
+<ul>
+    {% for message in messages %}
+        <li>
+            <strong>{{ message.sender.username }}:</strong> {{ message.content }}
+            <em>({{ message.timestamp|date:"d M Y H:i" }})</em>
+        </li>
+    {% endfor %}
+</ul>
+<form method="post" action="{% url 'send_message' user.id %}">
+    {% csrf_token %}
+    <textarea name="content" rows="4" placeholder="Tapez votre message ici..."></textarea>
+    <button type="submit">Envoyer</button>
+</form>

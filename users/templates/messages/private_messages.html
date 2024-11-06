@@ -1,0 +1,35 @@
+<!-- templates/messages/private_messages.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages Privés</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Vos Messages Privés</h1>
+        <nav>
+            <a href="{% url 'home' %}" class="button nav-button">Accueil</a>
+            <a href="{% url 'logout' %}" class="button nav-button">Déconnexion</a>
+        </nav>
+    </header>
+    <div class="container">
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li class="message-item">
+                        <strong>De : {{ message.sender.username }}</strong>
+                        <p>{{ message.content }}</p>
+                        <em>{{ message.timestamp|date:"d M Y H:i" }}</em>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Vous n'avez pas de messages privés pour le moment.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

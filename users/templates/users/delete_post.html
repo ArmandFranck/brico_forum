@@ -1,0 +1,7 @@
+<h2>Supprimer la publication</h2>
+<p>Êtes-vous sûr de vouloir supprimer cette publication : "{{ post.content }}" ?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Supprimer</button>
+</form>
+<a href="{% url 'home' %}">Annuler</a>
